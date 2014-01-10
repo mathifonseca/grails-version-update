@@ -85,7 +85,7 @@ private void runVersionUpdate() {
 	def versionChanged = setAppVersion(newVersion)
 
 	if (versionChanged) {
-		println "Application version set successfully!"
+		println "| OK - Application version set successfully!"
 	} else {
 		System.err.println 'Could not set new application version!'
 	}
