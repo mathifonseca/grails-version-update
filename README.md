@@ -111,3 +111,7 @@ If you have any questions or suggestions, you can contact me at <mathifonseca@gm
 ## Status
 
 [![Build Status](https://drone.io/github.com/mathifonseca/grails-version-update/status.png)](https://drone.io/github.com/mathifonseca/grails-version-update/latest)
+
+## Release Notes
+
+0.0.1 > Initial version
