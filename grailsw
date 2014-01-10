@@ -153,9 +153,9 @@ fi
         JAVACMD="java"
 #     fi
 # fi
-if [ ! -x "$JAVACMD" ]; then
-    die "JAVA_HOME is not defined correctly; can not execute: $JAVACMD"
-fi
+# if [ ! -x "$JAVACMD" ]; then
+#     die "JAVA_HOME is not defined correctly; can not execute: $JAVACMD"
+# fi
 
 # Increase the maximum file descriptors if we can
 if [ "$cygwin" = "false" ]; then
