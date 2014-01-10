@@ -1,6 +1,7 @@
 import grails.test.AbstractCliTestCase
 
 class VersionUpdateTests extends AbstractCliTestCase {
+    
     protected void setUp() {
         super.setUp()
     }
@@ -16,4 +17,5 @@ class VersionUpdateTests extends AbstractCliTestCase {
         assertEquals 0, waitForProcess()
         verifyHeader()
     }
+
 }
