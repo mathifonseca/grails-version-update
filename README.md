@@ -107,3 +107,7 @@ The opposite of the above, you use this char when you want to decrease your vers
 ## Contact
 
 If you have any questions or suggestions, you can contact me at <mathifonseca@gmail.com> or make any pull request you want.
+
+## Status
+
+[![Build Status](https://drone.io/github.com/mathifonseca/grails-version-update/status.png)](https://drone.io/github.com/mathifonseca/grails-version-update/latest)
