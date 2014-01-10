@@ -16,13 +16,24 @@ private void runVersionUpdate() {
 
 	def config = loadConfig(configClassName)
 
-	int depth = Integer.parseInt(getConfig(config, 'depth', 3))
+	def defaults = 
+		[
+			depth : 3,
+			separator : '.',
+			increase : '+',
+			decrease : '-',
+			keep : 'x'
+		]
+
+	int depth = Integer.parseInt(getConfig(config, 'depth', defaults.depth))
+	String separator = getConfig(config, 'separator', defaults.separator)
+	String increase = getConfig(config, 'increase', defaults.increase)
+	String decrease = getConfig(config, 'decrease', defaults.decrease)
+	String keep = getConfig(config, 'keep', defaults.keep)
 
 	if (!depth || depth < 1) {
 		depth = depth
 	}
-
-	String separator = getConfig(config, 'separator', '.')
 
 	println "Using version format: " + expectedVersionFormat(depth, separator)
 
@@ -30,7 +41,12 @@ private void runVersionUpdate() {
 
 	def param = argsMap.params[0]
 
-	boolean paramsOk = verifyFormat(depth, param, separator)
+	if (!param) {
+		param = defaultCommand(depth, separator, keep, increase)
+		println 'No parameters, using default: ' + param
+	}
+
+	boolean paramsOk = verifyFormat(depth, param, separator, increase, decrease, keep)
 
 	if (paramsOk) {
 		println 'Parameter is correct!'
@@ -48,16 +64,16 @@ private void runVersionUpdate() {
 		return
 	}
 
-	boolean currentFormatOk = verifyFormat(depth, appVersion, separator)
+	boolean currentFormatOk = verifyFormat(depth, appVersion, separator, increase, decrease, keep)
 
 	if (!currentFormatOk) {
 		System.err.println 'Current application version does not comply with expectations!'
 		return
 	}
 
-	def newVersion = calculateNewVersion(appVersion, param, separator)
+	def newVersion = calculateNewVersion(appVersion, param, separator, increase, decrease, keep)
 
-	boolean newFormatOk = verifyFormat(depth, newVersion, separator)
+	boolean newFormatOk = verifyFormat(depth, newVersion, separator, increase, decrease, keep)
 
 	if (!newVersion || !newFormatOk) {
 		System.err.println 'Could not calculate new application version!'
@@ -98,9 +114,18 @@ private String getConfig(config, String name, Object defaultIfMissing) {
 	return config[name] ?: defaultIfMissing
 }
 
+private String defaultCommand(depth, separator, keep, increase) {
+	String result = ""
+	depth.times {
+		def dot = it == depth - 1 ? '' : separator
+		result += (it == depth - 1 ? increase : keep) + dot
+	}
+	return result
+}
+
 private String expectedVersionFormat(int depth, String separator) {
 	String result = ""
-	int ascii = 90
+	int ascii = 122
 	depth.times { 
 		char c = (char) ascii
 		def dot = it == depth - 1 ? '' : separator
@@ -110,10 +135,10 @@ private String expectedVersionFormat(int depth, String separator) {
 	return result
 }
 
-private boolean verifyFormat(int depth, String v, String separator) {
+private boolean verifyFormat(int depth, String v, String separator, String increase, String decrease, String keep) {
 	if (!v) return false
 	if (v.endsWith(separator)) return false
-	def regex = /^([0-9]+[\.]?){$depth}$/
+	def regex = /^([0-9A-Za-z$increase$decrease$keep]+[\$separator]?){$depth}$/
 	return v ==~ regex
 }
 
@@ -146,22 +171,50 @@ private boolean setAppVersion(version) {
 
 }
 
-private String calculateNewVersion(String current, String change, String separator) {
-
-	def currentArray = current.tokenize(separator)
-	def changeArray = change.tokenize(separator)
+private String calculateNewVersion(String current, String change, String separator, String increase, String decrease, String keep) {
 
 	def result = ""
 
-	currentArray.eachWithIndex { v, index -> 
+	try {
 
-		int nv = Integer.parseInt(v) + Integer.parseInt(changeArray[index])
+		def currentArray = current.tokenize(separator)
+		def changeArray = change.tokenize(separator)
 
-		result += nv.toString() + separator
+		currentArray.eachWithIndex { v, index -> 
 
+			Integer currentValue = Integer.parseInt(v) 
+
+			def applyChange = changeArray[index]
+
+			Integer changedValue = currentValue
+
+			if (applyChange == increase) {
+
+				changedValue = currentValue + 1
+
+			} else if (applyChange == decrease) {
+
+				changedValue = currentValue - 1 < 0 ? 0 : currentValue - 1
+
+			} else if (applyChange == keep) {
+
+				changedValue = currentValue
+
+			} else {
+
+				changedValue = Integer.parseInt(applyChange.toString())
+
+			}
+			
+			result += changedValue.toString() + separator
+
+		}
+
+		result = result.substring(0, result.size()-1)
+
+	} catch (Exception ex) {
+		result = null
 	}
-
-	result = result.substring(0, result.size()-1)
 
 	return result
 
