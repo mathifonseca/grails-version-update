@@ -1,4 +1,4 @@
-<plugin name='version-update' version='0.0.1' grailsVersion='2.0 &gt; *'>
+<plugin name='version-update' version='1.0.0' grailsVersion='2.0 &gt; *'>
   <author>Mathias Fonseca</author>
   <authorEmail>mathifonseca@gmail.com</authorEmail>
   <title>Grails Application Version Update Plugin</title>
