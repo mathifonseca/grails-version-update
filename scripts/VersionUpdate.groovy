@@ -1,10 +1,6 @@
 import grails.util.GrailsUtil
 
-includeTargets << grailsScript('_GrailsInit')
-includeTargets << grailsScript('_GrailsCompile')
-
 target(versionUpdate: "Update application version") {
-	depends(compile)
 	runVersionUpdate()
 }
 
