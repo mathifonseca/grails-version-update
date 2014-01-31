@@ -114,4 +114,5 @@ If you have any questions or suggestions, you can contact me at <mathifonseca@gm
 
 ## Release Notes
 
-0.0.1 > Initial version
+    0.0.1 > Initial version
+    1.0.0 > It's official and published. Also updated to Grails 2.3.5 and improved performance.
