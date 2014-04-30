@@ -1,11 +1,11 @@
-Grails Plugin for Application Version Update
+Grails Plugin for Application or Plugin Version Update
 =====================
 
-When you have a bunch of applications to maintain and each of them needs to update its version with every change, and you combine that with your useless memory... you end up following always the same process:
+When you have a bunch of applications or plugins to maintain and each of them needs to update its version with every change, and you combine that with your useless memory... you end up following always the same process:
 
 1. Make your changes
 2. Start writing the `grails set-version` command
-3. Forget which was the current version
+3. Forget which the current version was
 4. Check the `application.properties` file to get the current version
 5. Go back to your command and finish writing it
 6. Execute the command
@@ -13,14 +13,14 @@ When you have a bunch of applications to maintain and each of them needs to upda
 So, when you get tired of that, you create a plugin for doing a little less steps and your process becomes:
 
 1. Make your changes
-2. Execute the `grails update-version` command
+2. Execute the `grails version-update` command
 3. Drink your coffee
 
 Magic, right?
 
 ## Usage
 
-`grails update-version $param`
+`grails version-update $param`
 
 The idea is that you write the least possible. So by convention, if you don't type any params, the plugin will increase the last level of your version by one.
 
@@ -30,25 +30,25 @@ Lets think of some more common examples:
 
 ```
 Old version:  0.2.4
-Command:      grails update-version
+Command:      grails version-update
 New version:  0.2.5
 ```
 
 ```
 Old version:  0.2.4
-Command:      grails update-version x.+.x
+Command:      grails version-update x.+.x
 New version:  0.3.4
 ```
 
 ```
 Old version:  0.2.4
-Command:      grails update-version +.+.0
+Command:      grails version-update +.+.0
 New version:  1.3.0
 ```
 
 ```
 Old version:  0.2.4
-Command:      grails update-version 8.-.x
+Command:      grails version-update 8.-.x
 New version:  8.1.4
 ```
 
@@ -106,7 +106,7 @@ The opposite of the above, you use this char when you want to decrease your vers
 
 ## Contact
 
-If you have any questions or suggestions, you can contact me at <mathifonseca@gmail.com> or make any pull request you want.
+If you have any questions or suggestions, you can contact me at <mathifonseca@gmail.com> or make any pull requests you want.
 
 ## Status
 
@@ -115,4 +115,5 @@ If you have any questions or suggestions, you can contact me at <mathifonseca@gm
 ## Release Notes
 
     0.0.1 > Initial version
-    1.0.0 > It's official and published. Also updated to Grails 2.3.5 and improved performance.
+    1.0.0 > It's official and published. Also upgraded to Grails 2.3.5 and improved performance.
+    1.1.0 > Now working for updating plugin versions. Upgraded to Grails 2.3.8.
