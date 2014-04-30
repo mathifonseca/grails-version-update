@@ -1,8 +1,8 @@
-<plugin name='version-update' version='1.0.0' grailsVersion='2.3.4 &gt; *'>
+<plugin name='version-update' version='1.1.0' grailsVersion='2.0 &gt; *'>
   <author>Mathias Fonseca</author>
   <authorEmail>mathifonseca@gmail.com</authorEmail>
   <title>Grails Application Version Update Plugin</title>
-  <description>Provides a more friendly way to update your application version.</description>
+  <description>Provides a more friendly way to update your application or plugin version.</description>
   <documentation>http://grails.org/plugin/version-update</documentation>
   <type>VersionUpdateGrailsPlugin</type>
   <resources />
