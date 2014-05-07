@@ -117,3 +117,4 @@ If you have any questions or suggestions, you can contact me at <mathifonseca@gm
     0.0.1 > Initial version
     1.0.0 > It's official and published. Also upgraded to Grails 2.3.5 and improved performance.
     1.1.0 > Now working for updating plugin versions. Upgraded to Grails 2.3.8.
+    1.1.1 > Fixed bug in plugin version updating.

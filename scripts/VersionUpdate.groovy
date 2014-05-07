@@ -203,7 +203,9 @@ private Boolean setAppVersion(version) {
 
 				String content = pluginDescriptor.getText()
 
-				content = content.replaceFirst(~/def version\s?=\s?[\"|\']?(.*)[\"|\']/) { "hola" }
+				content = content.replaceFirst(~/def version\s?=\s?[\"|\']?(.*)[\"|\']/) { 
+					"def version = \'${version}\'" 
+				}
 
 				pluginDescriptor.write(content)
 
