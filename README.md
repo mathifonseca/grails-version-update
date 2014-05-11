@@ -14,7 +14,7 @@ So, when you get tired of that, you create a plugin for doing a little less step
 
 1. Make your changes
 2. Execute the `grails version-update` command
-3. Drink your coffee
+3. Drink your coffee [^1]
 
 Magic, right?
 
@@ -118,3 +118,5 @@ If you have any questions or suggestions, you can contact me at <mathifonseca@gm
     1.0.0 > It's official and published. Also upgraded to Grails 2.3.5 and improved performance.
     1.1.0 > Now working for updating plugin versions. Upgraded to Grails 2.3.8.
     1.1.1 > Fixed bug in plugin version updating.
+
+[^1]:Why there are no Grails coffee mugs? :(
