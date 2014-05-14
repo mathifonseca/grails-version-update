@@ -1,12 +1,14 @@
 import grails.util.GrailsUtil
 
-target(versionUpdate: "Update application version") {
+target(versionUpdate: "Update application or plugin version") {
 	runVersionUpdate()
 }
 
+setDefaultTarget(versionUpdate)
+
 private void runVersionUpdate() {
 
-	println 'Updating application version...'
+	println 'Updating version...'
 
 	def configClassName = getBindingValueOrDefault('configClassname', 'BuildConfig')
 
@@ -18,7 +20,10 @@ private void runVersionUpdate() {
 			separator : '.',
 			increase : '+',
 			decrease : '-',
-			keep : 'x'
+			keep : 'x',
+			major : 'M',
+			minor : 'm',
+			patch : 'p'
 		]
 
 	int depth = Integer.parseInt(getConfig(config, 'depth', defaults.depth))
@@ -26,27 +31,36 @@ private void runVersionUpdate() {
 	String increase = getConfig(config, 'increase', defaults.increase)
 	String decrease = getConfig(config, 'decrease', defaults.decrease)
 	String keep = getConfig(config, 'keep', defaults.keep)
+	String major = getConfig(config, 'major', defaults.major)
+	String minor = getConfig(config, 'minor', defaults.minor)
+	String patch = getConfig(config, 'patch', defaults.patch)
 
-	if (!depth || depth < 1) {
-		depth = depth
-	}
+	if (depth < 1) depth = 1
 
 	println "Using version format: " + expectedVersionFormat(depth, separator)
 
-	println "Verifying parameters..."
-
 	def param = argsMap.params[0]
 
-	if (!param) {
-		param = defaultCommand(depth, separator, keep, increase)
-		println 'No parameters, using default: ' + param
+	if (!param) param = defaultCommand(depth, separator, keep, increase)
+
+	if (depth == 3 && param in [major, minor, patch]) {
+
+		switch (param) {
+		    case major:
+		        param = "${increase}${separator}0${separator}0"
+		        break
+		    case minor:
+		        param = "${keep}${separator}${increase}${separator}0"
+		        break
+	        case patch:
+		        param = "${keep}${separator}${keep}${separator}${increase}"
+		}
+
 	}
 
 	boolean paramsOk = verifyFormat(depth, param, separator, increase, decrease, keep)
 
-	if (paramsOk) {
-		println 'Parameter is correct!'
-	} else {
+	if (!paramsOk) {
 		System.err.println "Parameter is NOT in the expected format!"
 		return
 	}
@@ -54,16 +68,16 @@ private void runVersionUpdate() {
 	def appVersion = getAppVersion()
 
 	if (appVersion) {
-		println "Old application version -> " + appVersion
+		println "Old version -> " + appVersion
 	} else {
-		System.err.println 'Could not get application version!'
+		System.err.println 'Could not get version!'
 		return
 	}
 
 	boolean currentFormatOk = verifyFormat(depth, appVersion, separator, increase, decrease, keep)
 
 	if (!currentFormatOk) {
-		System.err.println 'Current application version does not comply with expectations!'
+		System.err.println 'Current version does not comply with expectations!'
 		return
 	}
 
@@ -72,23 +86,21 @@ private void runVersionUpdate() {
 	boolean newFormatOk = verifyFormat(depth, newVersion, separator, increase, decrease, keep)
 
 	if (!newVersion || !newFormatOk) {
-		System.err.println 'Could not calculate new application version!'
+		System.err.println 'Could not calculate new version!'
 		return
 	} else {
-		println "New application version -> " + newVersion
+		println "New version -> " + newVersion
 	}
 
 	def versionChanged = setAppVersion(newVersion)
 
 	if (versionChanged) {
-		println "| OK - Application version set successfully!"
+		println "| OK -  Version set successfully!"
 	} else {
-		System.err.println 'Could not set new application version!'
+		System.err.println 'Could not set new version!'
 	}
 
 }
-
-setDefaultTarget(versionUpdate)
 
 private ConfigObject loadConfig(String className) {
     def classLoader = Thread.currentThread().contextClassLoader

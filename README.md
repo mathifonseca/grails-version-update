@@ -6,7 +6,7 @@ When you have a bunch of applications or plugins to maintain and each of them ne
 1. Make your changes
 2. Start writing the `grails set-version` command
 3. Forget which the current version was
-4. Check the `application.properties` file to get the current version
+4. Check the `application.properties` (or `*GrailsPlugin.groovy` for plugins) file to get the current version
 5. Go back to your command and finish writing it
 6. Execute the command
 
@@ -16,7 +16,7 @@ So, when you get tired of that, you create a plugin for doing a little less step
 2. Execute the `grails version-update` command
 3. Drink your coffee
 
-Magic, right?
+[Magic](http://i.imgur.com/iZcUNxH.gif), right?
 
 ## Usage
 
@@ -52,9 +52,31 @@ Command:      grails version-update 8.-.x
 New version:  8.1.4
 ```
 
+Also, starting from version 1.2.0 of this plugin, you can use shortcuts to increase major, minor or patch versions and reset or keep the other accordingly.
+
+For example:
+
+```
+Old version:  1.2.4
+Command:      grails version-update M
+New version:  2.0.0
+```
+
+```
+Old version:  1.2.4
+Command:      grails version-update m
+New version:  1.3.0
+```
+
+```
+Old version:  1.2.4
+Command:      grails version-update p
+New version:  1.2.5
+```
+
 ## Configuration
 
-The plugin is thought to be used with the standard version format taken from [Semantic Versioning 2.0.0](http://semver.org/) where, in summary, they define the format **X.Y.Z** as the standard. The plugin uses this as convention, but if you want to configure it, you can do it by adding the following at the end of your `BuildConfig.groovy`
+The plugin is thought to be used with the standard version format taken from [Semantic Versioning 2.0.0](http://semver.org/) where, in summary, they define the format **X.Y.Z** as the standard. The plugin uses this as convention, but if you want to override it, you can do it by adding the following at the end of your `BuildConfig.groovy`
 
 ```groovy
 grails.project.dependency.resolution = {
@@ -76,6 +98,9 @@ versionupdate {
     keep = 'x'
     increase = '+'
     decrease = '-'
+    major = 'M'
+    minor = 'm'
+    patch = 'p'
 
 }
 ```
@@ -104,13 +129,21 @@ This is the char that means that you want to increase by one the version in the 
 
 The opposite of the above, you use this char when you want to decrease your version at that level. Note that if it is already zero, it will stay in zero to avoid negative numbers.
 
+#### major
+
+This means that you want to increase your major version and reset minor and patch to zero. Only works when depth is 3.
+
+#### minor
+
+This means that you want to increase your minor version. It will keep major as it is and reset patch to zero. Only works when depth is 3.
+
+#### patch
+
+This means that you want to increase your patch version and keep major and minor untouched. Only works when depth is 3.
+
 ## Contact
 
 If you have any questions or suggestions, you can contact me at <mathifonseca@gmail.com> or make any pull requests you want.
-
-## Status
-
-[![Build Status](https://drone.io/github.com/mathifonseca/grails-version-update/status.png)](https://drone.io/github.com/mathifonseca/grails-version-update/latest)
 
 ## Release Notes
 
@@ -118,4 +151,5 @@ If you have any questions or suggestions, you can contact me at <mathifonseca@gm
     1.0.0 > It's official and published. Also upgraded to Grails 2.3.5 and improved performance.
     1.1.0 > Now working for updating plugin versions. Upgraded to Grails 2.3.8.
     1.1.1 > Fixed bug in plugin version updating.
+    1.2.0 > Added shortcuts for increasing major, minor and patch versions.
 
