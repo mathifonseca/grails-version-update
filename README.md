@@ -1,6 +1,8 @@
 Grails Plugin for Application or Plugin Version Update
 =====================
 
+[![Build Status](https://travis-ci.org/mathifonseca/grails-version-update.svg?branch=master)](https://travis-ci.org/mathifonseca/grails-version-update)
+
 When you have a bunch of applications or plugins to maintain and each of them needs to update its version with every change, and you combine that with your useless memory... you end up following always the same process:
 
 1. Make your changes
