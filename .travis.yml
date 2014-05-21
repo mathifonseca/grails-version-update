@@ -1,12 +1,12 @@
 language: groovy
 jdk:
-  - oraclejdk7
+ - oraclejdk7
 branches:
-  only:
-    - master
+ only:
+ - master
 
 before_script:
- 	- chmod +x grailsw
+ - chmod +x grailsw
 
 script: ./grailsw compile --refresh-dependencies
-     && ./grailsw test-app
+ && ./grailsw test-app
