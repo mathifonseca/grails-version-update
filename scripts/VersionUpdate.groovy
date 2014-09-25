@@ -155,7 +155,7 @@ private String expectedVersionFormat(int depth, String separator) {
 private boolean verifyParamFormat(int depth, String v, String separator, String increase, String decrease, String keep, String label) {
 	if (!v) return false
 	if (v.endsWith(separator)) return false
-	def part = ("[0-9A-Za-z$increase$decrease$keep]$separator" * depth)[0..-2]
+	def part = ("[0-9A-Za-z$increase$decrease$keep]+$separator" * depth)[0..-2]
 	def regex = /^$part($label[A-Za-z]+)?$/
 	return v ==~ regex
 }
@@ -163,7 +163,7 @@ private boolean verifyParamFormat(int depth, String v, String separator, String 
 private boolean verifyVersionFormat(int depth, String v, String separator, String increase, String decrease, String keep, String label) {
 	if (!v) return false
 	if (v.endsWith(separator)) return false
-	def part = ("[0-9]$separator" * depth)[0..-2]
+	def part = ("[0-9]+$separator" * depth)[0..-2]
 	def regex = /^$part($label[A-Za-z]+)?$/
 	return v ==~ regex
 }
