@@ -98,7 +98,7 @@ private void runVersionUpdate() {
 		System.err.println 'Could not calculate new version!'
 		return
 	} else {
-		println "New version -> ${(char)27}[34;47m" + newVersion + "${(char)27}[37;40m"
+		println "New version -> ${(char)27}[32m" + newVersion + "${(char)27}[37;40m"
 	}
 
 	def versionChanged = setAppVersion(newVersion)
