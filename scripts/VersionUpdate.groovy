@@ -164,7 +164,7 @@ private boolean verifyVersionFormat(int depth, String v, String separator, Strin
 	if (!v) return false
 	if (v.endsWith(separator)) return false
 	def part = ("[0-9]+$separator" * depth)[0..-2]
-	def regex = /^$part($label[A-Za-z]+)?$/
+	def regex = /^$part($label[A-Za-z0-9]+)?$/
 	return v ==~ regex
 }
 
