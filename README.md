@@ -93,7 +93,7 @@ grails.project.dependency.resolution = {
     }
 }
 
-versionupdate {
+versionUpdate {
 
     depth = 3
     separator = '.'
@@ -103,6 +103,7 @@ versionupdate {
     major = 'M'
     minor = 'm'
     patch = 'p'
+    colored = true
 
 }
 ```
@@ -143,15 +144,19 @@ This means that you want to increase your minor version. It will keep major as i
 
 This means that you want to increase your patch version and keep major and minor untouched. Only works when depth is 3.
 
+#### colored
+
+By default, the output of the command will be colored to help you identify the new version. If you want to deactivate this, you can set this flag to false.
+
 ## Contact
 
 If you have any questions or suggestions, you can contact me at <mathifonseca@gmail.com> or make any pull requests you want.
 
-## Release Notes
+## Release Notes (excluding patches)
 
     0.0.1 > Initial version
     1.0.0 > It's official and published. Also upgraded to Grails 2.3.5 and improved performance.
     1.1.0 > Now working for updating plugin versions. Upgraded to Grails 2.3.8.
-    1.1.1 > Fixed bug in plugin version updating.
     1.2.0 > Added shortcuts for increasing major, minor and patch versions.
-
+    1.3.0 > Added labels support (x.y.z-label).
+    1.4.0 > Added colored output deactivation support.
