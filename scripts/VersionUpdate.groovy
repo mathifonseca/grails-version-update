@@ -27,7 +27,7 @@ private void runVersionUpdate() {
 			patch : 'p'
 		]
 
-	int depth = Integer.parseInt(getConfig(config, 'depth', defaults.depth))
+	Integer depth = Integer.parseInt(getConfig(config, 'depth', defaults.depth))
 	String separator = getConfig(config, 'separator', defaults.separator)
     String label = getConfig(config, 'label', defaults.label)
 	String increase = getConfig(config, 'increase', defaults.increase)
@@ -36,6 +36,7 @@ private void runVersionUpdate() {
 	String major = getConfig(config, 'major', defaults.major)
 	String minor = getConfig(config, 'minor', defaults.minor)
 	String patch = getConfig(config, 'patch', defaults.patch)
+	Boolean colored = config.colored == false ? false : true
 
 	if (depth < 1) depth = 1
 
@@ -98,13 +99,21 @@ private void runVersionUpdate() {
 		System.err.println 'Could not calculate new version!'
 		return
 	} else {
-		println "New version -> ${(char)27}[32m" + newVersion + "${(char)27}[37;40m"
+		if (colored) {
+			println "New version -> ${(char)27}[32m" + newVersion + "${(char)27}[37;40m"
+		} else {
+			println "New version -> " + newVersion
+		}
 	}
 
 	def versionChanged = setAppVersion(newVersion)
 
 	if (versionChanged) {
-		println "${(char)27}[32m| OK -${(char)27}[37m Version set successfully!"
+		if (colored) {
+			println "${(char)27}[32m| OK -${(char)27}[37m Version set successfully!"
+		} else {
+			println "| OK - Version set successfully!"
+		}
 	} else {
 		System.err.println 'Could not set new version!'
 	}
@@ -116,7 +125,7 @@ private ConfigObject loadConfig(String className) {
 	classLoader.addURL(new File(classesDirPath).toURL())
     try {
 		def parser = getBindingValueOrDefault('configParser', { name -> return new ConfigSlurper(GrailsUtil.environment).parse(classLoader.loadClass(className)) })
-		return parser(className).versionupdate
+		return parser(className).versionUpdate
     } catch (ClassNotFoundException e) {
         return new ConfigObject()
     }
