@@ -1,5 +1,5 @@
 class VersionUpdateGrailsPlugin {
-    def version = '1.3.3'
+    def version = '1.4.0'
     def grailsVersion = "2.0 > *"
     def title = "Grails Application Version Update Plugin"
     def author = "Mathias Fonseca"
