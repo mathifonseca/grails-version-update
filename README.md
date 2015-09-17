@@ -54,7 +54,7 @@ Command:      grails version-update 8.-.x
 New version:  8.1.4
 ```
 
-Also, starting from version 1.2.0 of this plugin, you can use shortcuts to increase major, minor or patch versions and reset or keep the other accordingly.
+Also, starting from version 1.2.0 of this plugin, you can use shortcuts to increase major, minor or patch versions and reset or keep the other accordingly. Also, from version 1.5.0 of this plugin, there is a shortcut for combining these with the SNAPSHOT label.
 
 For example:
 
@@ -74,6 +74,12 @@ New version:  1.3.0
 Old version:  1.2.4
 Command:      grails version-update p
 New version:  1.2.5
+```
+
+```
+Old version:  1.2.4
+Command:      grails version-update p s
+New version:  1.2.5-SNAPSHOT
 ```
 
 ## Configuration
@@ -160,3 +166,4 @@ If you have any questions or suggestions, you can contact me at <mathifonseca@gm
     1.2.0 > Added shortcuts for increasing major, minor and patch versions.
     1.3.0 > Added labels support (x.y.z-label).
     1.4.0 > Added colored output deactivation support.
+    1.5.0 > Added shortcut for SNAPSHOT labels.

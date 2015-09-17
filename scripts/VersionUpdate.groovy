@@ -60,9 +60,19 @@ private void runVersionUpdate() {
 		        break
 		}
 
-		if (argsMap.params[1]) {
+		def labelParam = argsMap.params[1]
 
-			param += "${label}${argsMap.params[1]}"
+		if (labelParam) {
+
+			if (labelParam == 's') {
+
+				param += "${label}SNAPSHOT"
+
+			} else {
+
+				param += "${label}${argsMap.params[1]}"
+
+			}
 
 		}
 
