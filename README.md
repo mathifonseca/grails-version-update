@@ -22,7 +22,7 @@ So, when you get tired of that, you create a plugin for doing a little less step
 
 ## Usage
 
-`grails version-update $param`
+`grails version-update $param $label`
 
 The idea is that you write the least possible. So by convention, if you don't type any params, the plugin will increase the last level of your version by one.
 
@@ -54,7 +54,7 @@ Command:      grails version-update 8.-.x
 New version:  8.1.4
 ```
 
-Also, starting from version 1.2.0 of this plugin, you can use shortcuts to increase major, minor or patch versions and reset or keep the other accordingly. Also, from version 1.5.0 of this plugin, there is a shortcut for combining these with the SNAPSHOT label.
+Also, starting from version 1.2.0 of this plugin, you can use shortcuts to increase major, minor or patch versions and reset or keep the other accordingly.
 
 For example:
 
@@ -76,10 +76,24 @@ Command:      grails version-update p
 New version:  1.2.5
 ```
 
+From version 1.5.0 of this plugin, if you specify a second param, it will be used as a label for the version. This is useful for tagging alpha, beta, snapshot, release candidates, etc. Anything you type will be appended to the version, except for `s` and `rc`, which are shortcuts for `SNAPSHOT` and `RC`.
+
+```
+Old version:  1.2.4
+Command:      grails version-update p beta
+New version:  1.2.5-beta
+```
+
 ```
 Old version:  1.2.4
 Command:      grails version-update p s
 New version:  1.2.5-SNAPSHOT
+```
+
+```
+Old version:  1.2.4
+Command:      grails version-update p rc
+New version:  1.2.5-RC
 ```
 
 ## Configuration
@@ -167,3 +181,4 @@ If you have any questions or suggestions, you can contact me at <mathifonseca@gm
     1.3.0 > Added labels support (x.y.z-label).
     1.4.0 > Added colored output deactivation support.
     1.5.0 > Added shortcut for SNAPSHOT labels.
+    1.6.0 > Added shortcut for RC labels.
