@@ -68,6 +68,10 @@ private void runVersionUpdate() {
 
 				param += "${label}SNAPSHOT"
 
+			} else if (labelParam == 'rc') {
+
+				param += "${label}RC"
+
 			} else {
 
 				param += "${label}${argsMap.params[1]}"
