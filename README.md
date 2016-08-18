@@ -98,6 +98,28 @@ New version:  1.2.5-RC
 
 ## Configuration
 
+### Grails 3.x
+
+You need to make two small changes in your application configuration.
+
+First, add the `appVersion` key in your `gradle.properties` file like this:
+
+```
+grailsVersion=3.1.9
+gradleWrapperVersion=2.9
+appVersion=1.0.0 //add this line
+```
+
+Then, go to your `build.gradle` file and change the `version` line to this:
+
+```
+version appVersion
+```
+
+Remember to never change the version directly in your `build.gradle` manually. If you need to do it, change the value in your `gradle.properties`.
+
+### Grails 2.x
+
 The plugin is thought to be used with the standard version format taken from [Semantic Versioning 2.0.0](http://semver.org/) where, in summary, they define the format **X.Y.Z** as the standard. The plugin uses this as convention, but if you want to override it, you can do it by adding the following at the end of your `BuildConfig.groovy`
 
 ```groovy
@@ -182,3 +204,4 @@ If you have any questions or suggestions, you can contact me at <mathifonseca@gm
     1.4.0 > Added colored output deactivation support.
     1.5.0 > Added shortcut for SNAPSHOT labels.
     1.6.0 > Added shortcut for RC labels.
+    2.0.0 > Grails 3.x compatibility. (Grails 2.x versions will still be maintained)
